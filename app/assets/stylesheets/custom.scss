@@ -1,0 +1,148 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "variables";
+@import "mixins";
+@import "nav";
+@import "microposts";
+@import "forms";
+@import "sidebar";
+
+.stats {
+  overflow: auto;
+  margin-top: 0px;
+  padding: 0px;
+
+  a {
+    float: left;
+    padding: 0px 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0px;
+      border: 0px;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+
+  a {
+    padding: 0px;
+  }
+}
+
+.users.follow {
+  padding: 0px;
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 15px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+/* Users index */
+.users {
+  list-style: none;
+  margin: 0px;
+  li { 
+    overflow: auto;
+    padding: 10px 0px;
+    border-bottom: 1px solid $gray-light;
+  }
+}
+
+.white {
+  color: white;
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: $gray-light;
+}
+
+footer a {
+  color: #555;
+  &:hover {
+    color: #222;
+  }
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+
+  li {
+    float: left;
+    margin-left: 15px;
+  }
+}
+

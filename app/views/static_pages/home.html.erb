@@ -1,0 +1,8 @@
+<% provide(:title, 'Home') %>
+
+<% if logged_in? %>
+  <%= render 'layouts/home_micropost_form' %>
+<% else %>
+  <%= render 'layouts/home_signup' %>
+<% end %>
+

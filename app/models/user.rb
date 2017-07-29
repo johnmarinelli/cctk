@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships,
                        source: :follower
 
+  has_many :sketches, dependent: :destroy
+
   default_scope -> { order created_at: :desc }
 
   has_secure_password

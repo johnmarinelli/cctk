@@ -148,7 +148,8 @@ class SketchesControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal new_snippet_content, @sketch.snippets.first.content
     assert_not flash.empty?
+    assert_empty @sketch.errors.messages
     follow_redirect!
-    assert_template 'sketches/show'
+    assert_template 'sketches/edit'
   end
 end

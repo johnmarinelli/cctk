@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <% get_sources_for_sketch_type(@sketch.sketch_type).each do |s| %>
+      <%= javascript_include_tag s[:url] %>
+    <% end %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

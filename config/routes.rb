@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :sketches, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :sketches
   resources :users do
     member do
       get :following, :followers

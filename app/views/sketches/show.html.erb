@@ -1,1 +1,13 @@
-<h1>Sketch#show</h1>
+<% provide(:title, @sketch.title) %>
+
+<h1>Sketches#show</h1>
+<% if @html_snippet %>
+  <%= @html_snippet.content.html_safe %>
+<% end %>
+
+<% if @js_snippet %>
+  <script>
+    <%= @js_snippet.content.html_safe %>
+  </script>
+<% end %>
+

@@ -10,6 +10,32 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
 
+  # http://wholemeal.co.nz/blog/2011/04/06/assert-difference-with-multiple-count-values/
+  def assert_differences(expression_array, message = nil, &block)
+    b = block.send :binding 
+
+    # map over [["Model.count", x], ["Model2.count", y]]
+    # and evaluate expressions in this context
+    before = expression_array.map { |expr| eval expr[0], b }
+
+    yield 
+
+    # go back over each expression
+    # re evaluate and assert difference is accurate
+    expression_array.each_with_index do |pair, i|
+      expr = pair[0]
+      diff = pair[1]
+
+      after = eval expr, b
+
+      error = "#{expr.inspect} didn't change by #{diff}"
+      error = "#{message}\n#{error}" if message
+
+      assert_equal before[i] + diff, after, error
+
+    end
+  end
+
   def is_logged_in?
     !session[:user_id].nil?
   end

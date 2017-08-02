@@ -1,0 +1,68 @@
+<div id="editor-container">
+  <div id="output-container">
+    <%= render 'layouts/editor/output_iframe' %>
+  </div>
+
+  <div class="editor-parent" id="code-container">
+    <%= form_for @sketch, class: 'no-padding' do |sketch| %>
+      <%= sketch.text_field :title, class: 'form-control' %>
+
+      <%= sketch.fields_for :snippets, @sketch.snippets do |snippet| %>
+        <%= snippet.text_area :content, class: 'form-control text-editor', id: "text-editor-#{snippet.object.language}", sid: snippet.object.id %>
+      <% end %>
+      <%= sketch.submit 'Save', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div> <!-- editor container -->
+
+<script>
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+var opts = {
+  lineNumbers: true,
+  tabSize:  2,
+  reindentOnLoad: true
+};
+
+var htmlOpts = deepClone(opts);
+htmlOpts['mode'] = 'html';
+
+var jsOpts = deepClone(opts);
+jsOpts['mode'] = 'javascript';
+
+/*
+* Initialize CodeMirror
+*/
+var htmlCode = document.getElementById('text-editor-html');
+var htmlCM = CodeMirror.fromTextArea(htmlCode, htmlOpts);
+var jsCode = document.getElementById('text-editor-javascript');
+var jsCM = CodeMirror.fromTextArea(jsCode, jsOpts);
+
+// auto refresh callback
+htmlCM.on('change', function(e) {
+  var ta = document.querySelector('textarea#text-editor-html');
+  var language = 'html';
+  var id = ta.getAttribute('sid');
+  var text = htmlCM.getValue();
+
+  var data = { 'id': id, 'language': language, 'content': text };
+
+  var ss = window.sessionStorage;
+  var recentlyModified = JSON.parse(ss.getItem('recently_modified') || '{}');
+  recentlyModified[id] = data;
+  ss.setItem('recently_modified', JSON.stringify(recentlyModified));
+
+  $.ajax({
+    type: 'get',
+    url: '/refresh-sketch',
+    data: data,
+
+    success: function (response) {
+      if ('1' == (response + '')) {
+        document.querySelector('iframe').contentWindow.location.reload();
+      }
+    }
+  });
+});
+</script>

@@ -68,6 +68,8 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
+    codemirror-rails (5.16.0)
+      railties (>= 3.0, < 6.0)
     coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -390,6 +392,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave (= 1.1.0)
+  codemirror-rails
   coffee-rails (~> 4.2)
   faker (= 1.7.3)
   fog

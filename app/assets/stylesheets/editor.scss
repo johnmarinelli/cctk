@@ -1,0 +1,52 @@
+html,body.editor {
+  height: 100%;
+}
+
+body.editor {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#editor-container {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0; 
+  position: relative;
+}
+
+#editor-container > div {
+  width: 50%;
+}
+
+#output-container {
+}
+
+#output-container iframe {
+  width: 100%;
+  height: 100%;
+}
+
+#code-container {
+  display:flex;
+  flex-flow: column nowrap;
+}
+
+#output-container, #code-container { 
+  flex: 1 auto; 
+  text-align: left;
+}
+
+.CodeMirror {
+  border-bottom: solid thin pink;
+}
+
+.text-editor {
+  border-bottom: solid thin black;
+}
+
+@media all and (min-width: 800px) {
+  #output-container { order: 1; }
+  #code-container { order: 2; }
+}

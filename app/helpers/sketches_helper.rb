@@ -9,7 +9,19 @@ module SketchesHelper
     elsif sketch_type == 'webvr'
       [
         {
-          url: "https://aframe.io/releases/0.6.1/aframe.min.js"
+          url: 'https://aframe.io/releases/0.6.1/aframe.min.js',
+        },
+        {
+          url: 'https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js'
+        },
+        {
+          url: 'https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js'
+        },
+        {
+          url: 'https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js'
+        },
+        {
+          url: 'https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js'
         }
       ]
     elsif sketch_type == 'processing'

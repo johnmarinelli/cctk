@@ -28,4 +28,18 @@ class SketchTest < ActiveSupport::TestCase
     assert_equal 2,  @sketch.snippets.count
   end
 
+  test 'new test defaults to webvr' do
+    sketch = Sketch.new
+
+    assert_equal 'webvr', sketch.sketch_type
+    assert_equal 'unsaved', sketch.status
+
+  end
+
+  test 'new test has 2 snippets' do
+    sketch = Sketch.new
+    sketch.save
+    assert_equal 2, sketch.snippets.count
+  end
+
 end

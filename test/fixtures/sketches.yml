@@ -2,3 +2,8 @@ glsl:
   user: one
   sketch_type: glsl
   title: 'test GLSL sketch'
+
+webvr:
+  user: one
+  sketch_type: webvr
+  title: 'test WebVR sketch'

@@ -1,6 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 glsl_snippet:
   content: 'void main(){}'
   language: glsl
   sketch: glsl
+
+webvr_html_snippet:
+  content: '<html></html>'
+  language: html
+  sketch: webvr
+
+webvr_js_snippet:
+  content: 'var a = 1;'
+  language: javascript
+  sketch: webvr

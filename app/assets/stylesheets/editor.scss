@@ -46,6 +46,11 @@ body.editor {
   border-bottom: solid thin black;
 }
 
+.CodeMirror {
+  font-size: 0.75em;
+  line-height: 1.25;
+}
+
 @media all and (min-width: 800px) {
   #output-container { order: 1; }
   #code-container { order: 2; }

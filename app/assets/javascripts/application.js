@@ -16,4 +16,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require codemirror
+//= require codemirror/modes/javascript
+//= require codemirror/modes/htmlmixed
 //= require_tree .

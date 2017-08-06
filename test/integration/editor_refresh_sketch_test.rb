@@ -4,22 +4,26 @@ class EditorRefreshSketchTest < ActionDispatch::IntegrationTest
   test 'editor gets refreshed on changed html' do
     # navigate to page with sketch editor layout
     @sketch = sketches :webvr
-    get edit_sketch_path @sketch
-
-    # type some stuff in to html snippet
-    assert_select '#text-editor-html'
-
     snippet = @sketch.snippets.where(language: 'html').first
-    new_snippet_content = '<body></body>'
+    old_html_content = snippet.content
+
+    get edit_sketch_path @sketch
+    new_snippet_content = '<div class="test">goodbye</div>'
 
     get refresh_sketch_path, 
             xhr: true,
             params: {
               id: snippet.id,
               language: snippet.language,
-              content: new_snippet_content
+              html_content: new_snippet_content,
+              js_content: @sketch.snippets.where(language: 'javascript').first
             }
     
     assert_response :ok
+    assert_template 'sketches/_sketch'
+
+    # make sure db wasn't written to
+    snippet.reload
+    assert_equal old_html_content, snippet.content
   end
 end

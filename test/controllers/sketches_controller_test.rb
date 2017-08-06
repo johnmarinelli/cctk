@@ -13,9 +13,11 @@ class SketchesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get show and use compiled sketch layout' do
-    get sketch_url Sketch.first
+    sketch = sketches :webvr
+    get sketch_url sketch
     assert_template layout: :compiled_sketch
-  end
+    assert_select '.test', text: 'hello'
+ end
 
   test 'should get index, and index should link to edit sketches' do
     get sketches_url

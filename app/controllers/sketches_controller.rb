@@ -7,8 +7,6 @@ class SketchesController < ApplicationController
   end
 
   def show
-    @html_snippet = @sketch.snippets.find_by(language: :html)
-    @js_snippet = @sketch.snippets.find_by(language: :javascript)
     render layout: 'compiled_sketch'
   end
 
@@ -48,11 +46,11 @@ class SketchesController < ApplicationController
       if @sketch.update(sketch_params)
         update_sketch_status :saved
         
-        flash[:success] = 'Sketch updated.'
+        flash.now[:info] = 'Sketch saved.'
         format.html { redirect_to edit_sketch_url(@sketch) }
         format.json { render :show, status: :ok, location: @sketch }
       else
-        flash[:danger] = 'Sketch could not be updated.'
+        flash.now[:danger] = 'Sketch could not be updated.'
         format.html { render :edit }
         format.json { render json: @sketch.errors, status: :unprocessable_entity }
       end
@@ -63,7 +61,27 @@ class SketchesController < ApplicationController
 
   end
 
+  # TODO: refactor into service 
+  # this resends data to sketch#show.
+  # does not save snippets to db.  use #update for that.
+  def refresh_sketch
+    id = editor_params[:id]
+    language = editor_params[:language]
+    content = editor_params[:html_content]
+    js_content = editor_params[:js_content]
+
+    html_snippet = Snippet.new language: 'html', content: content 
+    js_snippet = Snippet.new language: 'javascript', content: js_content
+
+    if request.xhr?
+      render partial: 'sketch', locals: { html_snippet: html_snippet, js_snippet: js_snippet }
+    end
+  end
+
   private
+    def editor_params
+      params.permit(:id, :html_content, :js_content, :language)
+    end
 
     def update_sketch_status(status)
       @sketch.update_attribute :status, status.to_s

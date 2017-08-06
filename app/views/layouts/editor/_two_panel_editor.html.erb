@@ -8,7 +8,7 @@
       <%= sketch.text_field :title, class: 'form-control' %>
 
       <%= sketch.fields_for :snippets, @sketch.snippets do |snippet| %>
-        <%= snippet.text_area :content, class: 'form-control text-editor', id: "text-editor-#{snippet.object.language}", sid: snippet.object.id %>
+        <%= snippet.text_area :content, class: 'form-control text-editor', id: "text-editor-#{snippet.object.language}", sid: snippet.object.id, language: snippet.object.language %>
       <% end %>
       <%= sketch.submit 'Save', class: 'btn btn-primary' %>
     <% end %>
@@ -40,18 +40,18 @@ var jsCode = document.getElementById('text-editor-javascript');
 var jsCM = CodeMirror.fromTextArea(jsCode, jsOpts);
 
 // auto refresh callback
-htmlCM.on('change', function(e) {
-  var ta = document.querySelector('textarea#text-editor-html');
-  var language = 'html';
+var onChangeCallback = function (e) {
+  var ta = e.getWrapperElement().previousSibling;
+
+  var language = ta.getAttribute('language');
   var id = ta.getAttribute('sid');
-  var text = htmlCM.getValue();
 
-  var data = { 'id': id, 'language': language, 'content': text };
-
-  var ss = window.sessionStorage;
-  var recentlyModified = JSON.parse(ss.getItem('recently_modified') || '{}');
-  recentlyModified[id] = data;
-  ss.setItem('recently_modified', JSON.stringify(recentlyModified));
+  var data = { 
+    'id': id, 
+    'language': language, 
+    'html_content': htmlCM.getValue(), 
+    'js_content': jsCM.getValue() 
+  };
 
   $.ajax({
     type: 'get',
@@ -59,10 +59,18 @@ htmlCM.on('change', function(e) {
     data: data,
 
     success: function (response) {
-      if ('1' == (response + '')) {
-        document.querySelector('iframe').contentWindow.location.reload();
+      if ('0' != (response + '')) {
+        document.querySelector('iframe')
+          .contentWindow
+          .document
+          .documentElement
+          .innerHTML = response;
       }
     }
   });
-});
+}
+
+htmlCM.on('change', onChangeCallback);
+jsCM.on('change', onChangeCallback);
+
 </script>

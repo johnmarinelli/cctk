@@ -27,7 +27,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     sketch = @user.sketches.first
     assert_select '.user_info h1', text: @user.name
-    assert_select 'a[href=?]', sketch_path(sketch)
+    assert_select 'a[href=?]', edit_sketch_path(sketch)
   end
 
   test "unauthenticated user should be redirected to login page when trying to delete a user" do

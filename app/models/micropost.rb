@@ -16,6 +16,4 @@ class Micropost < ApplicationRecord
         errors.add :picture, 'Should be less than 5MB'
       end
     end
-
-
 end

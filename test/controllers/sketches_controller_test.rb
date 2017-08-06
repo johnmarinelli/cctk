@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class SketchesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    log_in_as users(:one), 'password1'
-  end
 
   test 'should get new' do
     get new_sketch_url
@@ -38,7 +35,7 @@ class SketchesControllerTest < ActionDispatch::IntegrationTest
   test 'should not create sketch without title' do
     sketch = Sketch.new
 
-    # undo Sketch#set_defaults
+    # undo sketch defaults
     sketch.title = ''
     sketch.sketch_type = ''
     sketch.save validate: false
@@ -81,7 +78,6 @@ class SketchesControllerTest < ActionDispatch::IntegrationTest
 
 
   test 'should create sketch' do
-
     assert_differences [['Sketch.count', 1], 
                         ['Snippet.count', 2]] do
       sketch = Sketch.new

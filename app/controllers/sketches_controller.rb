@@ -11,7 +11,11 @@ class SketchesController < ApplicationController
   end
 
   def new
-    @sketch = Sketch.new
+    if current_user.nil?
+      @sketch = Sketch.new
+    else
+      @sketch = current_user.sketches.build
+    end
     @sketch.title = 'Sample sketch'
     @sketch.sketch_type = :webvr
     @sketch.save
@@ -28,7 +32,7 @@ class SketchesController < ApplicationController
         update_sketch_status :saved
         flash[:info] = "#{@sketch.title} saved."
         format.html { render :show }
-        format.json { render json: @sketch, callback: 'sketchCreated' }
+        format.json { render json: @sketch }
       else
         flash[:danger] = "#{@sketch.title} not saved."
         format.html { render :new }

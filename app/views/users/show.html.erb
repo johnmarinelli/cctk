@@ -25,5 +25,13 @@
     <% end %>
   </div>
 </div>
+
+<% if @user.sketches.any? %>
+  <ol class="sketches">
+    <%= render partial: 'users/sketches_view', locals: { sketches: @sketches } %>
+  </ol>
+  <%= will_paginate  @sketches %>
+<% end %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

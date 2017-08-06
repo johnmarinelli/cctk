@@ -15,8 +15,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('User.count') do
       post users_url, params: { user: { name: "valid", email: "valid@email.com", password: "passwordlmao", password_confirmation: "passwordlmao" } }
     end
-
-    #assert_redirected_to user_url(User.last)
   end
 
   test "should get login" do
@@ -27,6 +25,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should show user" do
     get user_url(@user)
     assert_response :success
+    sketch = @user.sketches.first
+    assert_select '.user_info h1', text: @user.name
+    assert_select 'a[href=?]', sketch_path(sketch)
   end
 
   test "unauthenticated user should be redirected to login page when trying to delete a user" do

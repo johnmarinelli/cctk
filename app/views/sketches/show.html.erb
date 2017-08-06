@@ -1,12 +1,4 @@
 <% provide(:title, @sketch.title) %>
-
-<% if @html_snippet %>
-  <%= @html_snippet.content.html_safe %>
-<% end %>
-
-<% if @js_snippet %>
-  <script>
-    <%= @js_snippet.content.html_safe %>
-  </script>
-<% end %>
-
+<%= render partial: 'sketch', 
+           locals: { js_snippet: @sketch.snippets.find_by(language: :javascript), 
+                     html_snippet: @sketch.snippets.find_by(language: :html)} %>

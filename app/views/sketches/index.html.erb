@@ -1,9 +1,11 @@
-<h1>Sketches#index</h1>
-
 <%= will_paginate %>
 
 <ul class="sketches">
-  <%= render @sketches %>
+  <% @sketches.each do |sketch| %>
+    <li>
+      <%= link_to sketch.title, edit_sketch_path(sketch) %>
+    </li>
+  <% end %>
 </ul>
 <%= link_to 'New Sketch', new_sketch_path %>
 

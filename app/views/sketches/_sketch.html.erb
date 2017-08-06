@@ -1,3 +1,8 @@
-<li>
-  <%= link_to sketch.title, edit_sketch_path(sketch) %>
-</li>
+<% if html_snippet %>
+  <%= html_snippet.content.html_safe %>
+<% end %>
+<% if js_snippet %>
+  <script>
+    <%= js_snippet.content.html_safe %>
+  </script>
+<% end %>

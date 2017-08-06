@@ -4,7 +4,7 @@ glsl_snippet:
   sketch: glsl
 
 webvr_html_snippet:
-  content: '<html></html>'
+  content: '<div class="test">hello</div>'
   language: html
   sketch: webvr
 

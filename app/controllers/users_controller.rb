@@ -35,9 +35,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        @user.send_activation_email
-        flash[:info] = 'Check your email to activate your account.'
-        format.html { redirect_to root_url }
+        #@user.send_activation_email
+        @user.activate
+        log_in @user
+        #flash[:info] = 'Check your email to activate your account.'
+        flash[:info] = 'User successfully created.'
+        format.html { redirect_to @user }
       else
         flash[:danger] = 'There are errors.'
         format.html { render :new }

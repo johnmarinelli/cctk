@@ -61,10 +61,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (1.1.0)
-      activemodel (>= 4.0.0)
-      activesupport (>= 4.0.0)
-      mime-types (>= 1.16)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     codemirror-rails (5.16.0)
@@ -241,7 +237,6 @@ DEPENDENCIES
   bootstrap-will_paginate (= 1.0.0)
   byebug
   capybara (~> 2.13)
-  carrierwave (= 1.1.0)
   codemirror-rails
   coffee-rails (~> 4.2)
   faker (= 1.7.3)

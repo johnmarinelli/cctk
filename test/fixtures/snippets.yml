@@ -12,3 +12,8 @@ webvr_js_snippet:
   content: 'var a = 1;'
   language: javascript
   sketch: webvr
+
+processing_snippet:
+  content: 'var a = 1;'
+  language: javascript
+  sketch: processing

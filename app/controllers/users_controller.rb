@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @is_current_user = current_user? @user
     @microposts = @user.microposts
                        .paginate(page: params[:page])
     @sketches = @user.sketches.paginate page: params[:page], per_page: 12

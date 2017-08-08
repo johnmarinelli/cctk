@@ -203,4 +203,28 @@ class SketchesControllerTest < ActionDispatch::IntegrationTest
     assert_template 'sketches/edit'
   end
 
+  test 'should redirect destroy if not logged in' do
+    @sketch = sketches :glsl
+    assert_no_difference 'Sketch.count' do 
+      delete sketch_path(@sketch)
+    end
+    assert_redirected_to root_url
+  end
+
+  test 'should not delete sketch if wrong user' do
+    log_in_as users(:one), 'password1'
+    assert_no_difference 'Sketch.count' do 
+      delete sketch_path(users(:two).sketches.first)
+    end
+    assert_redirected_to root_url
+  end
+
+  test 'should delete sketch' do
+    log_in_as users(:one), 'password1'
+    assert_difference 'Sketch.count', -1 do 
+      delete sketch_path(users(:one).sketches.first)
+    end
+    assert_redirected_to root_url
+  end
+
 end

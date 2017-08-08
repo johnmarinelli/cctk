@@ -1,6 +1,6 @@
 class SketchesController < ApplicationController
-  before_action :logged_in_user, only: [:destroy]
-  before_action :set_sketch, only: [:show, :create, :edit, :update]
+  before_action :set_sketch, only: [:show, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: :destroy
 
   def index
     @sketches = Sketch.all.paginate(page: params[:page])
@@ -62,7 +62,13 @@ class SketchesController < ApplicationController
   end
 
   def destroy
+    @sketch.destroy
 
+    respond_to do |format|
+      flash[:success] = 'Sketch deleted.'
+      format.html { redirect_back(fallback_location: root_url) }
+      format.json { head :no_content }
+    end
   end
 
   # TODO: refactor into service 
@@ -96,6 +102,10 @@ class SketchesController < ApplicationController
     end
 
     def set_sketch
-      @sketch = Sketch.find params[:id] || sketch_params[:id]
+      @sketch = Sketch.find(params[:id] || sketch_params[:id])
+    end
+
+    def correct_user
+      redirect_to root_url if (current_user.nil? or @sketch.user_id != current_user.id)
     end
 end

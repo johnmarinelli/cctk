@@ -3,7 +3,7 @@
 <ul class="sketches">
   <% @sketches.each do |sketch| %>
     <li>
-      <%= link_to sketch.title, edit_sketch_path(sketch) %>
+    <%= link_to sketch.title, edit_sketch_path(sketch) %> | <%= if sketch.user_id; link_to sketch.user.name, user_path(sketch.user_id); end %>
     </li>
   <% end %>
 </ul>

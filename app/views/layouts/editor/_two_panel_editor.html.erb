@@ -10,7 +10,11 @@
       <%= sketch.fields_for :snippets, @sketch.snippets do |snippet| %>
         <%= snippet.text_area :content, class: 'form-control text-editor', id: "text-editor-#{snippet.object.language}", sid: snippet.object.id, language: snippet.object.language %>
       <% end %>
-      <%= sketch.submit 'Save', class: 'btn btn-primary half-width' %>
+      <% if logged_in? %>
+        <%= sketch.submit 'Save', class: 'btn btn-primary half-width' %>
+      <% else %>
+        <%= sketch.submit 'Must be logged in to save', class: 'btn btn-primary half-width', disabled: true %>
+      <% end %>
       <%= link_to 'Home', root_path, class: 'btn btn-primary half-width' %>
     <% end %>
   </div>

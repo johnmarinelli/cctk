@@ -51,7 +51,16 @@ body.editor {
   line-height: 1.25;
 }
 
+a.btn {
+  color: white !important;
+}
+
+.half-width {
+  width: 49%;
+}
+
 @media all and (min-width: 800px) {
   #output-container { order: 1; }
   #code-container { order: 2; }
 }
+

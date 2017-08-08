@@ -10,7 +10,8 @@
       <%= sketch.fields_for :snippets, @sketch.snippets do |snippet| %>
         <%= snippet.text_area :content, class: 'form-control text-editor', id: "text-editor-#{snippet.object.language}", sid: snippet.object.id, language: snippet.object.language %>
       <% end %>
-      <%= sketch.submit 'Save', class: 'btn btn-primary' %>
+      <%= sketch.submit 'Save', class: 'btn btn-primary half-width' %>
+      <%= link_to 'Home', root_path, class: 'btn btn-primary half-width' %>
     <% end %>
   </div>
 </div> <!-- editor container -->

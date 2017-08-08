@@ -1,5 +1,6 @@
 <nav>
   <ul class="nav navbar-nav navbar-right">
+    <li><%= link_to "Create Sketch", new_sketch_path %></li>
     <li><%= link_to "Browse Sketches", sketches_path %></li>
     <% if logged_in? %>
       <li class="dropdown">
